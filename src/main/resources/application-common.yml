@@ -1,0 +1,57 @@
+# common
+spring:
+  application:
+    name: recruit
+
+  # YAML
+  messages:
+    basename: messages
+    encoding: UTF-8
+
+  # Encoding
+  # Redis / Session
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: "spring:session"
+
+#server
+server:
+  port: 8080
+
+  error:
+    whitelabel:
+      enabled: false
+
+  # Redis / Session
+  servlet:
+    session:
+      timeout: "30m"
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+
+  shutdown: graceful
+
+# Logging
+logging:
+  level:
+    reactor:
+      netty: off
+    jdbc.audit: off
+    jdbc.sqlonly: debug
+    jdbc.sltimqing: debug
+    jdbc.resultset: off
+    jdbc.resultsettable: off
+    org:
+      srpingframework:
+        web: error
+        security: debug
+    org.apache.kafka.clients.producer: warn
+
+# swagger-ui path
+springdoc:
+  swagger-ui:
+    path: /docs.html

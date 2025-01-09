@@ -1,0 +1,7 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import:
+      - application-common.yml
+      - application-localConfig.yml
