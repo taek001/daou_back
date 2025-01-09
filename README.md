@@ -40,3 +40,45 @@ clean 완료 이후
 Application Run으로 재시도 부탁드립니다
 
 ```
+
+### ERD
+```
++------------------+          +------------------+           +------------------+           +-----------------------+
+|    Department    |          |      Budget      |           |   Disbursement   |           |   DisbursementItem    |
+|------------------|          |------------------|           |------------------|           |-----------------------|
+| seq (PK)         |<-------->| seq (PK)         |<--------->| seq (PK)         |<--------->| seq (PK)              |
+| name             |          | amt              |           | title            |           | disbursement_seq (FK) |
++------------------+          | department_seq   |           | status           |           | name                  |
+                              | quarter          |           | budget_seq (FK)  |           | currency_type         |
+                              | year             |           +------------------+           | exchange_rate         |
+                              +------------------+                                          | quantity              |
+                                                                                            | unit_price            |
+                                                                                            | total_amount          |
+                                                                                            +———————————+
+
+```
+
+### ERD 설명
+- Department (부서)
+    - seq (부서 ID, 기본 키)
+    - name (부서명)
+    - Budget (예산 항목):
+    - seq (예산 항목 ID, 기본 키)
+    - amt (예산 금액)
+    - department_seq (부서의 ID, Department 테이블을 참조하는 외래 키)
+    - quarter (분기)
+    - year (년도)
+- Disbursement (지출결의서)
+    - seq (지출결의서 ID, 기본 키)
+    - title (지출결의서 제목)
+    - status (상태: 'TEMP', 'WAITING', 'FIN')
+    - budget_seq (예산 항목의 ID, Budget 테이블을 참조하는 외래 키)
+- DisbursementItem (지출 항목)
+    - seq (지출 항목 ID, 기본 키)
+    - disbursement_seq (지출결의서 ID, Disbursement 테이블을 참조하는 외래 키)
+    - name (지출 항목명)
+    - currency_type (통화 종류: 'USD', 'KRW', 'JPY')
+    - exchange_rate (환율)
+    - quantity (수량)
+    - unit_price (단가)
+    - total_amount (총액: 수량 * 단가)
